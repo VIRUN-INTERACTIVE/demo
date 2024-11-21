@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropzone File Upload</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+</head>
+<body>
+  <h1>Form with Dropzone.js</h1>
+  
+  <!-- Dropzone 영역 -->
+
+  
+  <form id="my-dropzone" class="dropzone">
+    <div class="dz-message">Drop files here or click to upload</div>
+  </form>
+  <button id="uploadButton">Submit</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+  <script>
+    Dropzone.autoDiscover = false;
+
+    // Dropzone 설정
+    const myDropzone = new Dropzone("#my-dropzone", {
+        autoProcessQueue: false,
+      url: "/updateFiles", // Node.js 백엔드의 업로드 경로
+      paramName: "profileImg", // Multer에서 지정한 필드 이름과 일치
+      uploadMultiple: false, // 단일 파일 업로드
+      maxFilesize: 5, // 최대 파일 크기: 5MB
+      parallelUploads: 5,// 동시에 업로드할 파일 수
+      acceptedFiles: "image/*", // 이미지 파일만 허용
+      addRemoveLinks: true, // 파일 삭제 링크 추가
+      init: function () {
+        this.on("addedfile", (file) => console.log("File added:", file.name));
+        this.on("removedfile", (file) => console.log("File removed:", file.name));
+        this.on("success", (file, response) => console.log("Upload success:", response));
+        this.on("error", (file, errorMessage) => console.error("Upload error:", errorMessage));
+      },
+    });
+
+    // 업로드 버튼 동작
+    document.getElementById("uploadButton").addEventListener("click", () => {
+      if (myDropzone.files.length === 0) {
+        alert("파일을 추가해주세요.");
+        return;
+      }
+      myDropzone.processQueue(); // 큐에 있는 파일 업로드
+    });
+  </script>
+</body>
+</html>
