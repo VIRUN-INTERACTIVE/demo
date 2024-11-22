@@ -5,6 +5,9 @@ const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
+const cors = require("cors");
+app.use(cors());
+
 
 // 업로드 디렉토리 생성
 const uploadDir = 'uploads';
@@ -50,7 +53,13 @@ app.post('/updateFiles', fileUpload.single('profileImg'), (req, res) => {
 app.use(express.static('public'));
 
 // 서버 실행
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+//   console.log(`Uploaded files will be stored in "${uploadDir}" directory.`);
+// });
+
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${PORT}`);
   console.log(`Uploaded files will be stored in "${uploadDir}" directory.`);
 });
