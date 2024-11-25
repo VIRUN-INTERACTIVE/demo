@@ -10,7 +10,7 @@ app.use(cors());
 
 
 // 업로드 디렉토리 생성
-const uploadDir = 'uploads';
+const uploadDir = '../uploads';
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir); // 디렉토리가 없으면 생성
 }
@@ -50,7 +50,7 @@ app.post('/updateFiles', fileUpload.single('profileImg'), (req, res) => {
 });
 
 // 정적 파일 제공
-app.use(express.static('public'));
+app.use(express.static('../public'));
 
 // 서버 실행
 // app.listen(PORT, () => {
