@@ -25,5 +25,5 @@
 ├── package.json        # 프로젝트 의존성 및 스크립트 정의
 └── package-lock.json   # 의존성 버전 고정 파일
 
-
-package.json 참고해서, 필요한 노드 모듈 설치 -->
+ -->
+package.json 참고해서, 필요한 노드 모듈 설치
